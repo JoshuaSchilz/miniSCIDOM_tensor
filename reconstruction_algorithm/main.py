@@ -11,8 +11,9 @@ from correction_matrix_producer import Correction_matrix_producer
 from image_loader import Image_loader
 from reconstructor import Reconstructor
 from tomograpic_viewer import Tomograpic_viewer
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+start_time = time.time()
 
 # for online readout (Basler 60gm =0.0634 | pixelfly = 0.073825)
 # s = 0.0634  # Basler --- Resolution (mm/pixel) depends on camera
@@ -128,6 +129,10 @@ cam_pic_240 = Image_loader(
     device,
 ).image
 
+end_time = time.time()
+elapsed_time = end_time - start_time
+print(f"Elapsed time Image Loading: {elapsed_time} seconds")
+
 correction_matrix = Correction_matrix_producer(
     shape_front,
     shape_side,
@@ -139,6 +144,10 @@ correction_matrix = Correction_matrix_producer(
 ).correction_matrix
 
 Tomograpic_viewer(correction_matrix, False, 4)
+
+end_time = time.time()
+elapsed_time = end_time - start_time
+print(f"Elapsed time Correction Matrix: {elapsed_time} seconds")
 
 save_directory = "../pictures/online/output/" + picture_name[:-4] + "/"
 if not os.path.exists(save_directory):
@@ -159,6 +168,9 @@ cam_pic_240[cam_pic_240 < smin] = 0
 Camera_picture_viewer(cam_pic_front, cam_pic_top, cam_pic_120, cam_pic_240,
                       False, 16)
 
+end_time = time.time()
+elapsed_time = end_time - start_time
+print(f"Elapsed time Camera Picture Viewer: {elapsed_time} seconds")
 # %% ####################################Reconstruction
 reconstructor = Reconstructor(
     max_it,
@@ -187,3 +199,7 @@ itk.imwrite(image, save_directory+"rec_light_dist" + picture_name[:-4] + ".nrrd"
 Tomograpic_viewer(
     (rec_light_dist / rec_light_dist.max()), False, 1
 )  # here you can enable the logaritmic scale
+
+end_time = time.time()
+elapsed_time = end_time - start_time
+print(f"Elapsed time Reconstruction: {elapsed_time} seconds")
