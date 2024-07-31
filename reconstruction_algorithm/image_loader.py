@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch
 import torchvision.transforms.functional as TF
-import torchvision.transforms as transforms
 from skimage.morphology import disk, opening
 
 # from scipy import signal
