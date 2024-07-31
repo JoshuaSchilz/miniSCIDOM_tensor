@@ -1,0 +1,29 @@
+shape_front = (150, 110)
+shape_side = (310, 110)
+deltaz = 310
+rot_angle = 0
+x_0 = 5
+y_0 = 0
+y1_front = 195
+y2_front = 345
+x1_front = 633
+x2_front = 743
+y1_top = 447
+y2_top = 757
+x1_top = 633
+x2_top = 743
+y1_120 = 442
+y2_120 = 752
+x1_120 = 902
+x2_120 = 1012
+y1_240 = 442
+y2_240 = 752
+x1_240 = 374
+x2_240 = 484
+shift_image_front = tensor([0, 0], dtype=torch.int32)
+shift_image_top = tensor([0, 0], dtype=torch.int32)
+shift_image_120 = tensor([0, 0], dtype=torch.int32)
+shift_image_240 = tensor([0, 0], dtype=torch.int32)
+#######################################
+s = 0.073825 #Resolution (mm/pixel) depends on camera
+ROI_diam = 2.5
