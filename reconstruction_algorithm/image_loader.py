@@ -122,13 +122,13 @@ class Image_loader(object):
             im = cv2.flip(im, 1)
             im = torch.from_numpy(im.astype('float32')).to(self.device)
 
-        # Plot the images before cropping
-        plt.imshow(im.cpu().numpy(), cmap="jet", vmin=0,
-                   vmax=65000, interpolation=None)  # oncoray
-        plt.plot([self.crop[2], self.crop[3], self.crop[3],
-                  self.crop[2], self.crop[2]],
-                 [self.crop[0], self.crop[0], self.crop[1],
-                  self.crop[1], self.crop[0]], linewidth=0.5)
+        # Uncomment to plot the images before cropping
+        # plt.imshow(im.cpu().numpy(), cmap="jet", vmin=0,
+        #            vmax=65000, interpolation=None)  # oncoray
+        # plt.plot([self.crop[2], self.crop[3], self.crop[3],
+        #           self.crop[2], self.crop[2]],
+        #          [self.crop[0], self.crop[0], self.crop[1],
+        #           self.crop[1], self.crop[0]], linewidth=0.5)
 
         # Crop image
         if self.crop is not None:

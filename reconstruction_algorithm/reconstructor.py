@@ -195,9 +195,9 @@ class Reconstructor(object):
         self.quotient_120_ar = self.quotient_120_ar[1:]
         self.quotient_240_ar = self.quotient_240_ar[1:]
 
-        print("Quotient front: ", self.quotient_front_ar)
-        print("Quotient top: ", self.quotient_top_ar)
-        print("Quotient 120: ", self.quotient_120_ar)
-        print("Quotient 240: ", self.quotient_240_ar)
+        # print("Quotient front: ", self.quotient_front_ar)
+        # print("Quotient top: ", self.quotient_top_ar)
+        # print("Quotient 120: ", self.quotient_120_ar)
+        # print("Quotient 240: ", self.quotient_240_ar)
 
         self.rec_light_dist = torch.flip(self.rec_light_dist, dims=(0, 1))

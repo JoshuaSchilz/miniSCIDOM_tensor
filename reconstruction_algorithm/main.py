@@ -3,7 +3,6 @@ import os
 import time
 from pathlib import Path
 import itk
-import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from camera_picture_viewer import Camera_picture_viewer
@@ -25,6 +24,7 @@ list_of_files = glob.glob(
 latest_file = max(list_of_files, key=os.path.getctime)
 path_obj = Path(latest_file)
 picture_name = path_obj.name
+print(f"Latest file: {picture_name}")
 
 # ==================== Input Values ============================================
 """Check if spatial resolution s is put in correctly"""
@@ -143,7 +143,8 @@ correction_matrix = Correction_matrix_producer(
     device,
 ).correction_matrix
 
-Tomograpic_viewer(correction_matrix, False, 4)
+# Uncomment to print correction matrix
+# Tomograpic_viewer(correction_matrix, False, 4)
 
 end_time = time.time()
 elapsed_time = end_time - start_time
@@ -165,12 +166,15 @@ cam_pic_front[cam_pic_front < smin] = 0
 cam_pic_top[cam_pic_top < smin] = 0
 cam_pic_120[cam_pic_120 < smin] = 0
 cam_pic_240[cam_pic_240 < smin] = 0
-Camera_picture_viewer(cam_pic_front, cam_pic_top, cam_pic_120, cam_pic_240,
-                      False, 16)
 
-end_time = time.time()
-elapsed_time = end_time - start_time
-print(f"Elapsed time Camera Picture Viewer: {elapsed_time} seconds")
+#Uncomment to print camers pictures
+# Camera_picture_viewer(cam_pic_front, cam_pic_top, cam_pic_120, cam_pic_240,
+#                       False, 16)
+
+# end_time = time.time()
+# elapsed_time = end_time - start_time
+# print(f"Elapsed time Camera Picture Viewer: {elapsed_time} seconds")
+
 # %% ####################################Reconstruction
 reconstructor = Reconstructor(
     max_it,
@@ -195,11 +199,11 @@ image = itk.GetImageFromArray(np.flip(rec_light_dist.cpu().numpy(), axis=1))
 image.SetSpacing([s, s, s])
 itk.imwrite(image, save_directory+"rec_light_dist" + picture_name[:-4] + ".nrrd")
 
-# Show reconstruction
-Tomograpic_viewer(
-    (rec_light_dist / rec_light_dist.max()), False, 1
-)  # here you can enable the logaritmic scale
+# Uncomment to show reconstruction
+# Tomograpic_viewer(
+#     (rec_light_dist / rec_light_dist.max()), False, 1
+# )  # here you can enable the logaritmic scale
 
 end_time = time.time()
 elapsed_time = end_time - start_time
-print(f"Elapsed time Reconstruction: {elapsed_time} seconds")
+print(f"Elapsed total time: {elapsed_time} seconds")
