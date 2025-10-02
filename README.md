@@ -8,7 +8,28 @@ Corresponding publication: https://www.cambridge.org/core/journals/high-power-la
 - `pytorch`
 - `scipy`
 
-# Running the Library
+# Running the UI Locally
+Run the UI using
+```
+python -m streamlit run run_ui.py
+```
+# Running the UI Online
+- The program uses the zrok api to expose the streamlit application to a public URL.
+
+- `setup.sh` - setup up the neccesary containers and packages to be used for a standalone functioning. **Can take quite a while**
+- `run_app.sh` - verify all the installation files and run the zrok application.
+
+- Before running zrok, please create an account on `myzrok.io`, get the account token from `api-v1.zrok.io` and save it in zrok.env file in the main directory.
+
+- Execute the shell scripts using:
+```
+./setup.sh
+./run_app.sh 
+```
+
+- If everything works properly, you get a public URL in the terminal that can be accessed remotely from any device.
+
+# Running the base code directly
 The base class for reconstruction is located in `libs/deconvolute.py`. The simple reconstructed light distribution can be obtained using the following minimal code:
 
 ```
@@ -30,27 +51,6 @@ deconvoluter.define_roi(shape_roi=shape_roi, rois=rois)
 correction_matrix = deconvoluter.create_correction_matrix()
 rec_light_dist = deconvoluter.perform_reconstruction(max_it=4, max_err=0.05, resolution=0.073825)
 ```
-
-Run the UI using
-```
-python -m streamlit run run_ui.py
-```
-
-# Running Online
-- The program uses the zrok api to expose the streamlit application to a public URL.
-
-- `setup.sh` - setup up the neccesary containers and packages to be used for a standalone functioning. **Can take quite a while**
-- `run_app.sh` - verify all the installation files and run the zrok application.
-
-- Before running zrok, please create an account on `myzrok.io`, get the account token from `api-v1.zrok.io` and save it in zrok.env file in the main directory.
-
-- Execute the shell scripts using:
-```
-./setup.sh
-./run_app.sh 
-```
-
-- If everything works properly, you get a public URL in the terminal that can be accessed remotely from any device.
 
 # Troubleshooting
 - *In case of problems, try deleting the image inside the apptainer folder and try again*
