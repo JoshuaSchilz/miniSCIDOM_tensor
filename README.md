@@ -9,7 +9,7 @@ Corresponding publication: https://www.cambridge.org/core/journals/high-power-la
 - `scipy`
 # Running the code
 ## Running the UI Locally
-Run the UI using
+Run the UI using (make sure to have all necessary packages installed in your python enviroment)
 ```
 python -m streamlit run run_ui.py
 ```
@@ -76,10 +76,19 @@ rec_light_dist = deconvoluter.perform_reconstruction(max_it=4, max_err=0.05, res
 ## 3. Reconstruction
 - The selected image will be shown.
 - Now the placement of the region of interests (ROI's) have to be set for each of the 4 projection.
-- The position of the individual ROIs is shown in the plot of the loaded image. The precise position is cruicial for a good and accurate 3D reconstruction (shifting the ROI by a few pixels can make a huge difference).
+  - One can toggle a logarithmic color scale for the plot of the image to better visualize the edges of the projections
+  - Under Shape Front: The height and the width of the Side and Front ROI's can be changed and thus increase or decrease the reconstruction volume. Typically it is easier to reconstruct a smaller volume but this also changes depending on the dose distribution.
+  - The position of the individual ROIs is shown in the plot of the loaded image. The precise position is cruicial for a good and accurate 3D reconstruction (shifting the ROI by a few pixels can make a huge difference).
+  - Under the different tabs ("Front", "Top", "120°" and "240°") one can set the position of the scale
+- When done setting the ROI positions one presses "Run Reconstruction and Save ROI's"
+- An indication on how accurate your reconstruction is are the "Quotients from the reconstruction". They basically showcase your error of the reconstruction, so one aims to get this quotient for all 4 projetion to 1±0.05 by the 4th iteration for a 5% Error.
+- So this takes a few tries: Reconstruct --> Check Quotient and Reconstruction --> Adjust ROI positions --> and so on, until you are pleased with the result
 
 <img width="1518" height="936" alt="image" src="https://github.com/user-attachments/assets/b77ca843-5640-4064-a3ec-949b798fec8b" />
 
+- If you have previously reconstructed an image and want to do the reconstruction again, you can drag and drop the .json file which is automatically created during the reconstruction and saved in the output folder into the overlay. This will load the ROI positions and parameter settings which were used for the reconstruction of that image
+
+<img width="1521" height="138" alt="image" src="https://github.com/user-attachments/assets/7dbb5713-109f-41c9-8d4a-628f840520af" />
 
 ## 4. Analysis Tools
 
