@@ -281,13 +281,13 @@ def render_results(reconstruction_result, deconvoluter, params, shape_side):
     do_let = st.toggle("Rerun with LET correction", value=False)
     if do_let:
         let_folder_loc = st.text_input(
-            "Path to input topaz file for let correction:",
+            "Path to input Topas or .npy file for let correction:",
             value="./extra_data/let_correction"
             # value=os.path.join(os.path.dirname(__file__), '..', 'extra_data', 'let_correction')
         )
     
         # Input field for "Adjusted Start" which sets the 'Term' variable
-        term = st.number_input("Adjusted Start (in miniSCIDOM Thickness) Note: 0.221475 is for First 3 Pixels", value=0.221475, help="This value will be used as 'Term' in evaluation_funcs", format="%.6f")
+        term = st.number_input("Adjusted Start (in miniSCIDOM Thickness) Note: 0.221 is for skipping the first 3 pixels with the ROI position of (Front°, 120° and 240°)", value=0.221475, help="This value will be used as 'Term' in evaluation_funcs", format="%.6f")
     
         st.markdown("#### Select Folder for Processing")
         if os.path.isdir(let_folder_loc):
