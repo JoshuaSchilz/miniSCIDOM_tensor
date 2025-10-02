@@ -107,6 +107,22 @@ rec_light_dist = deconvoluter.perform_reconstruction(max_it=4, max_err=0.05, res
 - All these curved will be saved to the output folder
 
 ## 5. LET correction
+- For correcting the LET one first has to simulate the track-averaged LET inside the miniSCIDOM with the corresponding particle spectrum that was used during the irradiation
+- The code can directly read the output file from topas (.csv) as well as 1D arrays (.npy)
+- Be aware that the bin length of the LET correction is hard coded in "evaluation_funcs.py" in the "return_let_corrected" function in the variable "bin_length_zletprofile". This bin length has to be adjusted to fit the resolution of your LET simulation data
+```  
+def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, shape_side, outdir, q_err_rel, term_input):
+  
+    s = params['res']
+    ROI_diam = params['roi_diam']
+    shift_ROI_x = params['shift_roi_x']
+    shift_ROI_y = params['shift_roi_y']
+    
+    bin_length_zletprofile = 0.0806452
+```
+- The "Adjusted Start" is important to define where the reconstruction starts. For example, your ROI for (Front, 120° and 240°) is not placed directly at the edge of the scintillator, but 3 pixels further in for a nicer reconstruction. This has to be considered so your simulated LET curve aligns with the reconstructed volume  
+<img width="798" height="921" alt="image" src="https://github.com/user-attachments/assets/7706e674-be5e-4587-9655-755ea833501e" />
+
 
 ## 6. Output files
 
