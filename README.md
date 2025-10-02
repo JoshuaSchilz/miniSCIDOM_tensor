@@ -14,6 +14,7 @@ Run the UI using
 python -m streamlit run run_ui.py
 ```
 This will provide a link to the web-based user interface 
+Example:
 ```
   You can now view your Streamlit app in your browser.
 
