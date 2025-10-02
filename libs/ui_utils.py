@@ -282,7 +282,7 @@ def render_results(reconstruction_result, deconvoluter, params, shape_side):
     if do_let:
         let_folder_loc = st.text_input(
             "Path to input topaz file for let correction:",
-            value="/home/rawdata/2025/2025_08_21/miniSCIDOM/LET"
+            value="./extra_data/let_correction"
             # value=os.path.join(os.path.dirname(__file__), '..', 'extra_data', 'let_correction')
         )
     
