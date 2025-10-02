@@ -26,9 +26,7 @@ from libs.ui_utils import (
 # --- Constants ---
 BASE_PATH = os.path.dirname(__file__)
 DATA_DIR = os.path.join(BASE_PATH, 'pictures')
-# DATA_DIR = "/home/Software/miniscidom_new/"
-#output_dir = "/home/Software/miniscidom_new/pictures/online/output/"
-output_dir = "/bigdata/HPLexp/Ions/Software/miniscidom_new/pictures/online/output/"
+output_dir = os.path.join(BASE_PATH, "pictures/online/output/")
 
 # --- Caching Functions ---
 @st.cache_data
