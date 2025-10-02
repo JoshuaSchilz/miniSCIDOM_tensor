@@ -91,8 +91,24 @@ rec_light_dist = deconvoluter.perform_reconstruction(max_it=4, max_err=0.05, res
 <img width="1521" height="138" alt="image" src="https://github.com/user-attachments/assets/7dbb5713-109f-41c9-8d4a-628f840520af" />
 
 ## 4. Analysis Tools
+- After reconstruction one can have a lot at the reconstructed 3D light/dose distribution. This is a tomographic viewer with which one can look at the different slices of the 3D dose distribution.
+- As well as the position of the circular ROI under "Masked 3D Distribution"
+
+<img width="779" height="922" alt="image" src="https://github.com/user-attachments/assets/5ad14392-98b9-472b-8073-3b3515c46bce" />
+
+- Under "Analysis Plot" one can see the plotted depth dose distribution which is calculated by taking the mean signal value inside the circular masked ROI
+
+<img width="510" height="535" alt="image" src="https://github.com/user-attachments/assets/f73208a5-dc90-41c1-82f3-16ff0820e8bd" />
+
+- Furthermore one can evaluate the lateral and vertical profile of individual sclices 
+
+<img width="504" height="745" alt="image" src="https://github.com/user-attachments/assets/374b856f-f9ce-41d4-a66d-07bd8521327d" />
+
+- All these curved will be saved to the output folder
 
 ## 5. LET correction
+
+## 6. Output files
 
 # Troubleshooting
 - *In case of problems, try deleting the image inside the apptainer folder and try again*
