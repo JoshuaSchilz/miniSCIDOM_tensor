@@ -1,0 +1,31 @@
+# Conda environment definition file
+
+name: miniscidom
+
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+  - nodefaults
+
+dependencies:
+  - python=3.11
+  - numpy=1.26.4
+  - scipy
+  - scikit-image
+  - scikit-learn
+  - scikit-build
+  - matplotlib
+  - streamlit
+  - opencv
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - kornia
+  - pip
+  
+  - pip:
+    - fft-conv-pytorch==1.2.0
+    - torchmetrics==1.7.1
+    - itk

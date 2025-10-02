@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+libs/__pycache__/
+pictures/online/output/**/
+zrok.env
+apptainer/**
