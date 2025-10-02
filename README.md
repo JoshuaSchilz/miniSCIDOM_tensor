@@ -9,7 +9,7 @@ Corresponding publication: https://www.cambridge.org/core/journals/high-power-la
 - `scipy`
 # Running the code
 ## Running the UI Locally
-Run the UI using (make sure to have all necessary packages installed in your python enviroment)
+Run the UI using (make sure to have all necessary packages installed in your Python environment)
 ```
 python -m streamlit run run_ui.py
 ```
@@ -23,7 +23,7 @@ Example:
 ## Running the UI Online
 - The program uses the zrok api to expose the streamlit application to a public URL.
 
-- `setup.sh` - setup up the neccesary containers and packages to be used for a standalone functioning. **Can take quite a while**
+- `setup.sh` - setup up the necessary containers and packages to be used for a standalone functioning. **Can take quite a while**
 - `run_app.sh` - verify all the installation files and run the zrok application.
 
 - Before running zrok, please create an account on `myzrok.io`, get the account token from `api-v1.zrok.io` and save it in zrok.env file in the main directory.
@@ -60,16 +60,16 @@ rec_light_dist = deconvoluter.perform_reconstruction(max_it=4, max_err=0.05, res
 ```
 # How to use the UI of the miniSCIDOM analysis tool 
 ## 1. Image loading:
-- Input the directory of your raw image or place it in the defaul directory and select the image you want to reconstruct.
+- Input the directory of your raw image or place it in the default directory and select the image you want to reconstruct.
 - An example image ("example_img.tif") is provided. 
 
 <img width="256" height="355" alt="image" src="https://github.com/user-attachments/assets/daa0f0b8-ca13-4bae-b1de-9a82cb6c74c5" />
 
 ## 2. Parameter Settings:
-- There are different parameters which have to best set correctly for an accurate reconstructuion
-- Firstly the resolution in mm/pixel this depends on the camera which is used (Default: PCO Pixelfly 4.2)
-- Efficiency factor can be used if a optical filter was placed infront of the objective, i.e. an OD1 filter with a transmission of 10%. In order to make the signal level comparable (to the without filter setting) one would put in 0.1 for the efficiancy factor
-- The ROI diameter describes the size of a circular mask which is placed over the reconstruction in the and in which the depth dose distribution will be calculated. The ROI can be shiftet in the x and y plane by adjusting "Shift ROI X/Y (pixels). 
+- Different parameters have to be set correctly for an accurate reconstruction
+- Firstly, the resolution in mm/pixel depends on the camera which is used (Default: PCO Pixelfly 4.2)
+- Efficiency factor can be used if an optical filter was placed in front of the objective, i.e, an OD1 filter with a transmission of 10%. To make the signal level comparable (to the setting without a filter), one would put in 0.1 for the efficiency factor
+- The ROI diameter describes the size of a circular mask that is placed over the reconstruction and in which the depth dose distribution will be calculated. The ROI can be shifted in the x and y plane by adjusting "Shift ROI X/Y (pixels). 
 
 <img width="1510" height="357" alt="image" src="https://github.com/user-attachments/assets/9b50afa4-25bd-4c53-9c82-c327e8657148" />
 
@@ -101,6 +101,6 @@ rec_light_dist = deconvoluter.perform_reconstruction(max_it=4, max_err=0.05, res
 - *In case you get long errors (that might be related to file watching) when running without a linux container-(apptainer), please delete the apptainer folder (dont worry - it can be generated back with the setup.sh file) and try again*
 
 # Comments
-- Evaluation function are located in `libs/evaluation_funcs.py`
+- Evaluation functions are located in `libs/evaluation_funcs.py`
 - The Main deconvolution class is located in libs/deconvolute.py
 - Run_ui.py takes care of plotting, however older libraries are kept for backwards compatibility
