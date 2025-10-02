@@ -7,8 +7,8 @@ Corresponding publication: https://www.cambridge.org/core/journals/high-power-la
 - `streamlit`
 - `pytorch`
 - `scipy`
-
-# Running the UI Locally
+# Running the code
+## Running the UI Locally
 Run the UI using
 ```
 python -m streamlit run run_ui.py
@@ -20,7 +20,7 @@ Example:
 
   Local URL: http://localhost:8501
 ```
-# Running the UI Online
+## Running the UI Online
 - The program uses the zrok api to expose the streamlit application to a public URL.
 
 - `setup.sh` - setup up the neccesary containers and packages to be used for a standalone functioning. **Can take quite a while**
@@ -36,12 +36,12 @@ Example:
 
 - If everything works properly, you get a public URL in the terminal that can be accessed remotely from any device.
 
-# Running the base code directly
+## Running the base code directly
 The base class for reconstruction is located in `libs/deconvolute.py`. The simple reconstructed light distribution can be obtained using the following minimal code:
 
 ```
 from libs.deconvolute import Deconvolute
-image_path = "pictures/online/input/Gaussian_Set3_00001_substracted_BG_Image_Noise_R_2_th_50.tif"
+image_path = "pictures/online/input/example_img.tif"
 factor = 1
 outdir = "pictures/online/"
 
@@ -59,8 +59,31 @@ correction_matrix = deconvoluter.create_correction_matrix()
 rec_light_dist = deconvoluter.perform_reconstruction(max_it=4, max_err=0.05, resolution=0.073825)
 ```
 # How to use the UI of the miniSCIDOM analysis tool 
-Input the directory of your raw image or place it in the defaul directory and select the image you want to reconstruct. An example image is provided. 
-<img width="255" height="363" alt="image" src="https://github.com/user-attachments/assets/2cda963e-5242-4244-82d6-bb8131c63ba4" />
+## 1. Image loading:
+- Input the directory of your raw image or place it in the defaul directory and select the image you want to reconstruct.
+- An example image ("example_img.tif") is provided. 
+
+<img width="256" height="355" alt="image" src="https://github.com/user-attachments/assets/daa0f0b8-ca13-4bae-b1de-9a82cb6c74c5" />
+
+## 2. Parameter Settings:
+- There are different parameters which have to best set correctly for an accurate reconstructuion
+- Firstly the resolution in mm/pixel this depends on the camera which is used (Default: PCO Pixelfly 4.2)
+- Efficiency factor can be used if a optical filter was placed infront of the objective, i.e. an OD1 filter with a transmission of 10%. In order to make the signal level comparable (to the without filter setting) one would put in 0.1 for the efficiancy factor
+- The ROI diameter describes the size of a circular mask which is placed over the reconstruction in the and in which the depth dose distribution will be calculated. The ROI can be shiftet in the x and y plane by adjusting "Shift ROI X/Y (pixels). 
+
+<img width="1510" height="357" alt="image" src="https://github.com/user-attachments/assets/9b50afa4-25bd-4c53-9c82-c327e8657148" />
+
+## 3. Reconstruction
+- The selected image will be shown.
+- Now the placement of the region of interests (ROI's) have to be set for each of the 4 projection.
+- The position of the individual ROIs is shown in the plot of the loaded image. The precise position is cruicial for a good and accurate 3D reconstruction (shifting the ROI by a few pixels can make a huge difference).
+
+<img width="1518" height="936" alt="image" src="https://github.com/user-attachments/assets/b77ca843-5640-4064-a3ec-949b798fec8b" />
+
+
+## 4. Analysis Tools
+
+## 5. LET correction
 
 # Troubleshooting
 - *In case of problems, try deleting the image inside the apptainer folder and try again*
