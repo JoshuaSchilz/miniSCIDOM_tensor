@@ -58,6 +58,9 @@ deconvoluter.define_roi(shape_roi=shape_roi, rois=rois)
 correction_matrix = deconvoluter.create_correction_matrix()
 rec_light_dist = deconvoluter.perform_reconstruction(max_it=4, max_err=0.05, resolution=0.073825)
 ```
+# How to use the UI of the miniSCIDOM analysis tool 
+Input the directory of your raw image or place it in the defaul directory and select the image you want to reconstruct. An example image is provided. 
+<img width="255" height="363" alt="image" src="https://github.com/user-attachments/assets/2cda963e-5242-4244-82d6-bb8131c63ba4" />
 
 # Troubleshooting
 - *In case of problems, try deleting the image inside the apptainer folder and try again*
