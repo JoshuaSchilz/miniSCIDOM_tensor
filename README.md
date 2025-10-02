@@ -13,6 +13,12 @@ Run the UI using
 ```
 python -m streamlit run run_ui.py
 ```
+This will provide a link to the web-based user interface 
+```
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+```
 # Running the UI Online
 - The program uses the zrok api to expose the streamlit application to a public URL.
 
