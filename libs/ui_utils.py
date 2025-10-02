@@ -174,7 +174,7 @@ def render_sidebar(data_dir):
         
         st.markdown("#### Select Image for Processing")
         selected_image_path = None
-        st.markdown(f"File LOcation: {file_loc}")
+        st.markdown(f"File Location: {file_loc}")
         if os.path.isdir(file_loc):
             try:
                 file_paths = glob.glob(os.path.join(file_loc, "*.tif")) + glob.glob(os.path.join(file_loc, "*original.png"))

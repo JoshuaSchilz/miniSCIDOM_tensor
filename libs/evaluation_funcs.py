@@ -232,7 +232,7 @@ def Lateral_profile(outdir, image_array, thick, pos, s, q_err):
     return [fig0, fig1], mean_intensity_values, width
 
 def save_and_plot_doses(outdir, mean_array, err_abs, dist_3D, s, ROI_diam):
-    normalization_factor = 133
+    normalization_factor = 1
     conversion_factor = 1  # Conversion factor for WET to Gy, adjust as needed
     save_directory_notnormalized = os.path.join(outdir, "notnormalized_lineout")
     isExist = os.path.exists(save_directory_notnormalized)
@@ -261,7 +261,7 @@ def save_and_plot_doses(outdir, mean_array, err_abs, dist_3D, s, ROI_diam):
     ) 
     ax.set_title('Not normalized depth dose distr. |  ⌀ ROI = {} mm'.format(ROI_diam), fontsize=7)
     ax.set_xlabel('Depth [mm]', fontsize=7)
-    ax.set_ylabel('Signal (Gy)', fontsize=7)
+    ax.set_ylabel('Signal (a.u.)', fontsize=7)
     ax.legend(fontsize=7)
     ax.grid(True)
     ax.tick_params(axis='both', which='major', labelsize=5)
