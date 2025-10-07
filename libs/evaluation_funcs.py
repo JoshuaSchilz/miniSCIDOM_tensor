@@ -234,14 +234,16 @@ def Lateral_profile(outdir, image_array, thick, pos, s, q_err):
 def save_and_plot_doses(outdir, mean_array, err_abs, dist_3D, s, ROI_diam):
     normalization_factor = 1
     conversion_factor = 1  # Conversion factor for WET to Gy, adjust as needed
-    save_directory_notnormalized = os.path.join(outdir, "notnormalized_lineout")
-    isExist = os.path.exists(save_directory_notnormalized)
-    if not isExist:
-        os.makedirs(save_directory_notnormalized)
+    #save_directory_notnormalized = os.path.join(outdir, "notnormalized_lineout")
+    #isExist = os.path.exists(save_directory_notnormalized)
+    #if not isExist:
+    #    os.makedirs(save_directory_notnormalized)
 
-    np.save(save_directory_notnormalized + "notnormalizedmean_array", mean_array / normalization_factor)
-    np.save(save_directory_notnormalized + "notnormalizederr", err_abs / normalization_factor)
-    np.save(save_directory_notnormalized + "notnormalizedmean_array_notmasked", dist_3D)
+    #np.save(save_directory_notnormalized + "notnormalizedmean_array", mean_array / normalization_factor)
+    #np.save(save_directory_notnormalized + "notnormalizederr", err_abs / normalization_factor)
+    x_values = np.arange(0, len(mean_array), 1) * s
+    np.savez(f"{outdir}/ROI_mean.npz", x=x_values, mean=mean_array, err=err_abs)
+    #np.save(save_directory_notnormalized + "notnormalizedmean_array_notmasked", dist_3D)
 
     fig, ax = plt.subplots(figsize=(3, 3))
 
@@ -266,6 +268,7 @@ def save_and_plot_doses(outdir, mean_array, err_abs, dist_3D, s, ROI_diam):
     ax.grid(True)
     ax.tick_params(axis='both', which='major', labelsize=5)
     plt.minorticks_on()
+    plt.savefig(f"{outdir}/depthdose.png", dpi = 300)
     
     return fig
 
@@ -349,7 +352,8 @@ def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, s
 
     calib_value = 1 
     matrix_3D_corrected_calib=matrix_3D_corrected*calib_value
-    np.savez(f"{outdir}/light_dist_quenching_corr.npz", matrix_3D_corrected_calib=matrix_3D_corrected_calib)
+    #np.savez(f"{outdir}/light_dist_quenching_corr.npz", matrix_3D_corrected_calib=matrix_3D_corrected_calib)
+    np.save(f"{outdir}/light_dist_quenching_corr.npy", matrix_3D_corrected_calib)
     
     # ==== Plot 1D mean =====
     mean_array_qk, std_qk, mask = calculate_center_mean_per_slice(matrix_3D_corrected_calib, int((ROI_diam/s)/2), shift_ROI_x,shift_ROI_y)
@@ -392,7 +396,7 @@ def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, s
     ax.legend(fontsize=8)
     #ax.grid(True)
     plt.minorticks_on()
-    plt.savefig(f"{outdir}/depthdose_smart.png", dpi = 300)
+    plt.savefig(f"{outdir}/depthdose_quenching_corr.png", dpi = 300)
     
     thickness = 19
     position_adj = 0
@@ -401,6 +405,6 @@ def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, s
     x_values = np.arange(0, len(mean_array_qk), 1) * s * 1.045 + adj_d
 
     # Save as a .npz file (preferred for NumPy arrays)
-    np.savez(f"{outdir}/quenching_corr_mean.npz", x=x_values, mean=mean_array_qk, err=err_abs_qk)
+    np.savez(f"{outdir}/quenching_corr_ROI_mean.npz", x=x_values, mean=mean_array_qk, err=err_abs_qk)
 
     return fig

@@ -2,6 +2,7 @@ import os,sys
 import itk
 import numpy as np
 import torch
+import tifffile
 import json
 base_path = os.path.dirname(__file__)
 sys.path.append(base_path)
@@ -174,9 +175,10 @@ class Deconvolute(object):
         if not os.path.exists(self.outdir):
             os.makedirs(self.outdir) 
         np.save(self.outdir + "/rec_light_dist.npy", rec_light_dist.cpu().numpy())
-        image = itk.GetImageFromArray(np.flip(rec_light_dist.cpu().numpy(), axis = 1))
-        image.SetSpacing([resolution, resolution, resolution])
-        itk.imwrite(image, self.outdir + "/rec_light_dist" + ".nrrd")
+        #image = itk.GetImageFromArray(np.flip(rec_light_dist.cpu().numpy(), axis = 1))
+        #image.SetSpacing([resolution, resolution, resolution])
+        #itk.imwrite(image, self.outdir + "/rec_light_dist" + ".nrrd")
+        tifffile.imwrite(self.outdir + "/rec_light_dist.tif", rec_light_dist.cpu().numpy())
         
         q_front = np.array(reconstructor.quotient_front_ar)
         q_top = np.array(reconstructor.quotient_top_ar)
