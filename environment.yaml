@@ -29,3 +29,4 @@ dependencies:
     - fft-conv-pytorch==1.2.0
     - torchmetrics==1.7.1
     - itk
+    - tifffile
