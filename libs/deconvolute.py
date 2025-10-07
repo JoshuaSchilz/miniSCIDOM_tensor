@@ -1,5 +1,5 @@
 import os,sys
-import itk
+#import itk
 import numpy as np
 import torch
 import tifffile

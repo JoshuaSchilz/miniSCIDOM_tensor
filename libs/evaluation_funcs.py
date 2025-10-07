@@ -5,6 +5,7 @@ import os
 from Birkmodel import lightcorrection, dosecorrection
 import pandas as pd
 from getprofile import Get_profile
+import tifffile
 
 def calculate_center_mean_per_slice(arr, radius, shift_x=0, shift_y=0):
     center = np.array(arr.shape) // 2
@@ -353,7 +354,8 @@ def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, s
     calib_value = 1 
     matrix_3D_corrected_calib=matrix_3D_corrected*calib_value
     #np.savez(f"{outdir}/light_dist_quenching_corr.npz", matrix_3D_corrected_calib=matrix_3D_corrected_calib)
-    np.save(f"{outdir}/light_dist_quenching_corr.npy", matrix_3D_corrected_calib)
+    np.save(f"{outdir}/quenching_corr_rec_light_dist.npy", matrix_3D_corrected_calib)
+    tifffile.imwrite(f"{outdir}/quenching_corr_rec_light_dist.tif", matrix_3D_corrected_calib)
     
     # ==== Plot 1D mean =====
     mean_array_qk, std_qk, mask = calculate_center_mean_per_slice(matrix_3D_corrected_calib, int((ROI_diam/s)/2), shift_ROI_x,shift_ROI_y)
@@ -396,7 +398,7 @@ def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, s
     ax.legend(fontsize=8)
     #ax.grid(True)
     plt.minorticks_on()
-    plt.savefig(f"{outdir}/depthdose_quenching_corr.png", dpi = 300)
+    plt.savefig(f"{outdir}/quenching_corr_depthdose.png", dpi = 300)
     
     thickness = 19
     position_adj = 0
