@@ -125,6 +125,22 @@ def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, s
 
 
 ## 6. Output files
+- An Output folder with the same name as the image will be created containing the following files
+- ROI_Data.json
+  - Containing all the ROI and other parameters used for the reconstruction
+  - can be drag and dropped into the UI to apply it to an Image
+- rec_light_dist.npy / .tif
+  - 3D array of the reconstructed light/dose distribution
+  - .tif file saved for quick viewing in i.e. imageJ
+- depthdose.png
+  - Depth dose distribution calculated by the mean dose inside the circular ROI (purple curve)
+- ROI_mean.npz
+  - corresponding data to the depth dose curve containing dose and error values
+- vertical_profile_data.npz
+- lateral_profile_data.npz
+- quenching_corr_rec_light_dist.npy / .tif
+- quenching_corr_depthdose.png
+- quenching_corr_ROI_mean.npz
 
 # Troubleshooting
 - *In case of problems, try deleting the image inside the apptainer folder and try again*
