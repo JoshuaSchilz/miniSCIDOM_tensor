@@ -42,6 +42,12 @@ Example:
 
 - If everything works properly, you get a public URL in the terminal that can be accessed remotely from any device.
 
+### Troubleshooting
+- *In case of problems, try deleting the image inside the apptainer folder and try again*
+- *please make the shell (.sh) files executable by running:*
+`chmod +x setup.sh` and `chmod +x run_app.sh`
+- *In case you get long errors (that might be related to file watching) when running without a linux container-(apptainer), please delete the apptainer folder (don't worry - it can be generated back with the setup.sh file) and try again*
+
 ## Running the base code directly
 The base class for reconstruction is located in `libs/deconvolute.py`. The simple reconstructed light distribution can be obtained using the following minimal code:
 
@@ -147,12 +153,6 @@ def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, s
 - quenching_corr_rec_light_dist.npy / .tif
 - quenching_corr_depthdose.png
 - quenching_corr_ROI_mean.npz
-
-# Troubleshooting
-- *In case of problems, try deleting the image inside the apptainer folder and try again*
-- *please make the shell (.sh) files executable by running:*
-`chmod +x setup.sh` and `chmod +x run_app.sh`
-- *In case you get long errors (that might be related to file watching) when running without a linux container-(apptainer), please delete the apptainer folder (don't worry - it can be generated back with the setup.sh file) and try again*
 
 # Comments
 - Evaluation functions are located in `libs/evaluation_funcs.py`
