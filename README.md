@@ -1,5 +1,5 @@
 # Introduction
-The following library performs reconstruction of images from the miniSCIDOM detector using pytorch for faster computations. The original code for the reconstruction was written by *Angela Corvino and Marvin Reimold* (https://github.com/AngelaCorvino/MiniSCIDOM).
+The following library performs image reconstruction from the miniSCIDOM detector using PyTorch for faster computations. The original code for the reconstruction was written by *Angela Corvino and Marvin Reimold* (https://github.com/AngelaCorvino/MiniSCIDOM).
 
 Corresponding publication: https://www.cambridge.org/core/journals/high-power-laser-science-and-engineering/article/miniscidom-a-scintillatorbased-tomograph-for-volumetric-dose-reconstruction-of-single-laserdriven-proton-bunches/171051DA9A4C1744E0020F783F1381D1
 
@@ -7,6 +7,12 @@ Corresponding publication: https://www.cambridge.org/core/journals/high-power-la
 - `streamlit`
 - `pytorch`
 - `scipy`
+- `scikit`
+- `opencv`
+- `kornia`
+- `fft-conv-pytorch`
+- `tifffile`
+- `torchmetrics`
 # Running the code
 ## Running the UI Locally
 Run the UI using (make sure to have all necessary packages installed in your Python environment)
@@ -23,10 +29,10 @@ Example:
 ## Running the UI Online
 - The program uses the zrok api to expose the streamlit application to a public URL.
 
-- `setup.sh` - setup up the necessary containers and packages to be used for a standalone functioning. **Can take quite a while**
+- `setup.sh` - setup up the necessary containers and Python packages to be used for a standalone functioning. **Can take quite a while**
 - `run_app.sh` - verify all the installation files and run the zrok application.
 
-- Before running zrok, please create an account on `myzrok.io`, get the account token from `api-v1.zrok.io` and save it in zrok.env file in the main directory.
+- Before running zrok, please create an account on `myzrok.io`, get the account token from `api-v1.zrok.io`, and save it in the zrok.env file in the main directory.
 
 - Execute the shell scripts using:
 ```
@@ -75,41 +81,41 @@ rec_light_dist = deconvoluter.perform_reconstruction(max_it=4, max_err=0.05, res
 
 ## 3. Reconstruction
 - The selected image will be shown.
-- Now the placement of the region of interests (ROI's) have to be set for each of the 4 projection.
+- Now the placement of the region of interest (ROI) has to be set for each of the 4 projections.
   - One can toggle a logarithmic color scale for the plot of the image to better visualize the edges of the projections
-  - Under Shape Front: The height and the width of the Side and Front ROI's can be changed and thus increase or decrease the reconstruction volume. Typically it is easier to reconstruct a smaller volume but this also changes depending on the dose distribution.
-  - The position of the individual ROIs is shown in the plot of the loaded image. The precise position is cruicial for a good and accurate 3D reconstruction (shifting the ROI by a few pixels can make a huge difference).
-  - Under the different tabs ("Front", "Top", "120°" and "240°") one can set the position of the scale
-- When done setting the ROI positions one presses "Run Reconstruction and Save ROI's"
-- An indication on how accurate your reconstruction is are the "Quotients from the reconstruction". They basically showcase your error of the reconstruction, so one aims to get this quotient for all 4 projetion to 1±0.05 by the 4th iteration for a 5% Error.
+  - Under Shape Front: The height and the width of the Side and Front ROI's can be changed and thus increase or decrease the reconstruction volume. Typically, it is easier to reconstruct a smaller volume; however, this also depends on the dose distribution.
+  - The position of the individual ROIs is shown in the plot of the loaded image. The precise position is crucial for a good and accurate 3D reconstruction (shifting the ROI by a few pixels can make a huge difference).
+  - Under the different tabs ("Front", "Top", "120°", and "240°"), one can set the position of the scale
+- When done setting the ROI positions, one presses "Run Reconstruction and Save ROI's"
+- An indication of how accurate your reconstruction is is the "Quotients from the reconstruction". They basically showcase your error of the reconstruction, so one aims to get this quotient for all 4 projections to 1±0.05 by the 4th iteration for a 5% error.
 - So this takes a few tries: Reconstruct --> Check Quotient and Reconstruction --> Adjust ROI positions --> and so on, until you are pleased with the result
 
 <img width="1518" height="936" alt="image" src="https://github.com/user-attachments/assets/b77ca843-5640-4064-a3ec-949b798fec8b" />
 
-- If you have previously reconstructed an image and want to do the reconstruction again, you can drag and drop the .json file which is automatically created during the reconstruction and saved in the output folder into the overlay. This will load the ROI positions and parameter settings which were used for the reconstruction of that image
+- If you have previously reconstructed an image and want to do the reconstruction again, you can drag and drop the .json file, which is automatically created during the reconstruction and saved in the output folder, into the overlay. This will load the ROI positions and parameter settings that were used for the reconstruction of that image
 
 <img width="1521" height="138" alt="image" src="https://github.com/user-attachments/assets/7dbb5713-109f-41c9-8d4a-628f840520af" />
 
 ## 4. Analysis Tools
-- After reconstruction one can have a lot at the reconstructed 3D light/dose distribution. This is a tomographic viewer with which one can look at the different slices of the 3D dose distribution.
+- After reconstruction, one can have a lot at the reconstructed 3D light/dose distribution. This is a tomographic viewer with which one can look at the different slices of the 3D dose distribution.
 - As well as the position of the circular ROI under "Masked 3D Distribution"
 
 <img width="779" height="922" alt="image" src="https://github.com/user-attachments/assets/5ad14392-98b9-472b-8073-3b3515c46bce" />
 
-- Under "Analysis Plot" one can see the plotted depth dose distribution which is calculated by taking the mean signal value inside the circular masked ROI
+- Under "Analysis Plot" one can see the plotted depth dose distribution, which is calculated by taking the mean signal value inside the circular masked ROI
 
 <img width="510" height="535" alt="image" src="https://github.com/user-attachments/assets/f73208a5-dc90-41c1-82f3-16ff0820e8bd" />
 
-- Furthermore one can evaluate the lateral and vertical profile of individual sclices 
+- Furthermore, one can evaluate the lateral and vertical profile of individual slices 
 
 <img width="504" height="745" alt="image" src="https://github.com/user-attachments/assets/374b856f-f9ce-41d4-a66d-07bd8521327d" />
 
-- All these curved will be saved to the output folder
+- All these curves will be saved to the output folder
 
 ## 5. LET correction
-- For correcting the LET one first has to simulate the track-averaged LET inside the miniSCIDOM with the corresponding particle spectrum that was used during the irradiation
-- The code can directly read the output file from topas (.csv) as well as 1D arrays (.npy)
-- Be aware that the bin length of the LET correction is hard coded in "evaluation_funcs.py" in the "return_let_corrected" function in the variable "bin_length_zletprofile". This bin length has to be adjusted to fit the resolution of your LET simulation data
+- For correcting the LET, one first has to simulate the track-averaged LET inside the miniSCIDOM with the corresponding particle spectrum that was used during the irradiation
+- The code can directly read the output file from Topas (.csv) as well as 1D arrays (.npy)
+- Be aware that the bin length of the LET correction is hard-coded in "evaluation_funcs.py" in the "return_let_corrected" function in the variable "bin_length_zletprofile". This bin length has to be adjusted to fit the resolution of your LET simulation data
 ```  
 def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, shape_side, outdir, q_err_rel, term_input):
   
@@ -125,13 +131,13 @@ def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, s
 
 
 ## 6. Output files
-- An Output folder with the same name as the image will be created containing the following files
+- An Output folder with the same name as the image will be created, containing the following files
 - ROI_Data.json
   - Containing all the ROI and other parameters used for the reconstruction
-  - can be drag and dropped into the UI to apply it to an Image
+  - can be dragged and dropped into the UI to apply it to an Image
 - rec_light_dist.npy / .tif
   - 3D array of the reconstructed light/dose distribution
-  - .tif file saved for quick viewing in i.e. imageJ
+  - .tif file saved for quick viewing in i.e., ImageJ
 - depthdose.png
   - Depth dose distribution calculated by the mean dose inside the circular ROI (purple curve)
 - ROI_mean.npz
@@ -146,9 +152,9 @@ def return_let_corrected(outputfile_topas, rec_light_dist, mean_array, params, s
 - *In case of problems, try deleting the image inside the apptainer folder and try again*
 - *please make the shell (.sh) files executable by running:*
 `chmod +x setup.sh` and `chmod +x run_app.sh`
-- *In case you get long errors (that might be related to file watching) when running without a linux container-(apptainer), please delete the apptainer folder (dont worry - it can be generated back with the setup.sh file) and try again*
+- *In case you get long errors (that might be related to file watching) when running without a linux container-(apptainer), please delete the apptainer folder (don't worry - it can be generated back with the setup.sh file) and try again*
 
 # Comments
 - Evaluation functions are located in `libs/evaluation_funcs.py`
 - The Main deconvolution class is located in libs/deconvolute.py
-- Run_ui.py takes care of plotting, however older libraries are kept for backwards compatibility
+- Run_ui.py takes care of plotting, however, older libraries are kept for backwards compatibility
